@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
 import {
     View,
     Text,
@@ -7,19 +8,17 @@ import {
     Dimensions,
     ImageBackground,
     TextInput,
-    TouchableOpacity
-
+    TouchableOpacity,
 } from 'react-native';
-import AntIcon from "react-native-vector-icons/AntDesign";
+import AntIcon from "react-native-vector-icons/AntDesign"
 
+ //Criando duas constantes
+ const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
-
-
-
-//Criando duas constantes
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+const statusBarHeight = StatusBar.currentHeight ? StatusBar.currentHeight + 18 : + 40;
 
 export default function Home() {
+
 
     const [lista, setLista] = useState([
         {
@@ -59,8 +58,9 @@ export default function Home() {
             img: 'https://sujeitoprogramador.com/wp-content/uploads/2020/05/freeguy.jpg'
         },
     ]);
-
     const [background, setBackground] = useState(lista[0].img)
+
+   
     return (
         <ScrollView style={styles.container}>
             <View style={{ flex: 1, height: screenHeight }}>
@@ -75,12 +75,21 @@ export default function Home() {
                                 style={styles.input}
                                 placeholder="Procurando algo?"
                             />
-                            <TouchableOpacity>
-                                <AntIcon
-                                name='search1'
-                                />
+                            <TouchableOpacity style={styles.icon}>
+                                <AntIcon name='search1' size={25} />
                             </TouchableOpacity>
+
+                            
                         </View>
+                        <Text
+                            style={{color:'#fff', fontSize:25, fontWeight:'bold', marginLeft:10, marginVertical:10 }}
+                            >
+                                Acabou de chegar
+                                </Text>
+
+                        <View style={styles.slideView}>
+                            
+                        </View>        
 
                     </ImageBackground>
                 </View>
@@ -91,8 +100,10 @@ export default function Home() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: '#fff'
     },
+
     imgBg: {
         flex: 1,
         width: null,
@@ -100,5 +111,27 @@ const styles = StyleSheet.create({
         opacity: 1,
         justifyContent: "flex-start",
         backgroundColor: '#000'
+    },
+    viewSearch: {
+        backgroundColor: "#fff",
+        elevation: 10,
+        borderRadius: 5,
+        marginTop: statusBarHeight,
+        marginVertical: 10,
+        width: '95%',
+        flexDirection: 'row',
+        alignSelf: 'center'
+    },
+    input: {
+        width: '90%',
+        padding: 13,
+        paddingLeft: 20,
+        fontSize: 17,
+    },
+    icon: {
+        position: 'absolute',
+        right: 16,
+        top: 12,
+        color: '#000'
     }
 })
