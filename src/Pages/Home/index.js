@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
+import Carousel from 'react-native-snap-carousel'; 
 import {
     View,
     Text,
@@ -15,11 +16,14 @@ import AntIcon from "react-native-vector-icons/AntDesign"
  //Criando duas constantes
  const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
+
+
 const statusBarHeight = StatusBar.currentHeight ? StatusBar.currentHeight + 18 : + 40;
 
 export default function Home() {
 
-
+    const carouselRef = useRef(null);
+    
     const [lista, setLista] = useState([
         {
             title: "O Justiceiro",
@@ -58,7 +62,15 @@ export default function Home() {
             img: 'https://sujeitoprogramador.com/wp-content/uploads/2020/05/freeguy.jpg'
         },
     ]);
-    const [background, setBackground] = useState(lista[0].img)
+    const [background, setBackground] = useState(lista[0].img);
+
+    const _renderItem = ({ item, index }) => {
+        return(
+            <View>
+
+            </View>
+        )
+    };
 
    
     return (
@@ -88,7 +100,15 @@ export default function Home() {
                                 </Text>
 
                         <View style={styles.slideView}>
-                            
+                        <Carousel
+                            style={styles.carousel}
+                            ref={carouselRef}
+                            data={lista}
+                            renderItem={_renderItem}
+                            sliderWidth={screenWidth}
+                            itemWidth={200}
+                            inactiveSlideOpacity={0.5}
+                            />
                         </View>        
 
                     </ImageBackground>
